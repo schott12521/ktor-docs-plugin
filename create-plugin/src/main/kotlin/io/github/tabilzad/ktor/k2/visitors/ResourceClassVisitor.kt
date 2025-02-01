@@ -1,9 +1,11 @@
 package io.github.tabilzad.ktor.k2.visitors
 
 import io.github.tabilzad.ktor.*
+import io.github.tabilzad.ktor.k1.visitors.toSwaggerType
 import io.github.tabilzad.ktor.k2.ClassIds
 import io.github.tabilzad.ktor.k2.findAnnotation
 import io.github.tabilzad.ktor.k2.getMembers
+import io.github.tabilzad.ktor.output.OpenApiSpec
 import org.jetbrains.kotlin.fir.FirElement
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.analysis.checkers.toRegularClassSymbol
@@ -86,6 +88,7 @@ internal class ResourceClassVisitor(
             )
         }
     }
+
     private fun FirProperty.isPathParamFrom(path: String): Boolean {
         val pathParams = "\\{([^}]*)}".toRegex().findAll(path).toList()
         val names = pathParams.mapNotNull { it.groups[1]?.value }
