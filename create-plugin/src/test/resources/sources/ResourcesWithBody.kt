@@ -17,11 +17,19 @@ class Articles
 fun Application.responseBodyResource() {
     routing {
         // Not working
-        post { article: Articles, request: SimpleRequest ->
-            println(request)
+//        post { article: Articles, request: SimpleRequest ->
+//            println(request)
+//
+//            call.respondText("Create a new article")
+//        }
 
-            call.respondText("Create a new article")
-        }
+        // Also not working, but using call.receive
+//        post<Articles> {
+//            val request = call.receive<SimpleRequest>()
+//            println(request)
+//
+//            call.respondText("Create a new article")
+//        }
 
         // Working
 //        post<SimpleRequest>("articles") { request ->
@@ -29,5 +37,13 @@ fun Application.responseBodyResource() {
 //
 //            call.respondText("Create a new article")
 //        }
+
+        // Also working, but using call.receive
+        post("articles") {
+            val request = call.receive<SimpleRequest>()
+            println(request)
+
+            call.respondText("Create a new article")
+        }
     }
 }
